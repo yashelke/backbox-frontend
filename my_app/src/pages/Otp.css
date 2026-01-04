@@ -1,0 +1,457 @@
+/* ============================================
+   OTP VERIFICATION PAGE
+   Matching Login/Signup Design
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+}
+
+/* ============================================
+   OTP CONTAINER
+   ============================================ */
+
+.otp-container {
+  width: 100%;
+  max-width: 900px;
+  animation: slideUp 0.5s ease-out;
+}
+
+.otp-form {
+  background: #ffffff;
+  padding: 2.5rem 4rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   TITLE
+   ============================================ */
+
+.otp-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a202c;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.otp-title::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  margin: 0.8rem auto 0;
+  border-radius: 2px;
+}
+
+/* ============================================
+   FORM GROUP
+   ============================================ */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: -1rem;
+}
+
+/* ============================================
+   OTP INSTRUCTION
+   ============================================ */
+
+.otp-instruction {
+  background: #f7fafc;
+  padding: 1rem;
+  border-radius: 8px;
+  color: #4a5568;
+  font-size: 0.9rem;
+  text-align: center;
+  border-left: 4px solid #667eea;
+}
+
+.otp-instruction strong {
+  color: #667eea;
+}
+
+/* ============================================
+   INPUT FIELDS
+   ============================================ */
+
+.form-group input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font-size: 0.95rem;
+  color: #1a202c;
+  background: #f7fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.form-group input::placeholder {
+  color: #a0aec0;
+}
+
+.form-group input:focus {
+  background: #ffffff;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group input:hover:not(:focus) {
+  border-color: #cbd5e0;
+}
+
+/* OTP Input - Centered and larger text */
+input[name="otp"] {
+  text-align: center;
+  font-size: 1.5rem;
+  letter-spacing: 0.5rem;
+  font-weight: 600;
+}
+
+/* Six-box OTP grid */
+.otp-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.6rem;
+  max-width: 420px;
+  margin: 0.6rem auto 0;
+}
+
+.otp-cell {
+  height: 56px;
+  border-radius: 8px;
+  border: 2px solid #e2e8f0;
+  background: #f7fafc;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a202c;
+  outline: none;
+  transition: all 0.18s ease;
+  -moz-appearance: textfield;
+}
+
+.otp-cell:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.07);
+  background: #ffffff;
+}
+
+.otp-cell::placeholder {
+  color: #cbd5e0;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.otp-btn {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* Shimmer Effect */
+.otp-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.otp-btn:hover::before {
+  left: 100%;
+}
+
+.otp-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.otp-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.5);
+  }
+}
+
+.otp-btn {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.otp-btn:hover {
+  animation: none;
+}
+
+.otp-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Loading State */
+.otp-btn.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   RESEND SECTION
+   ============================================ */
+
+.resend-section {
+  text-align: center;
+  margin-top: -0.5rem;
+}
+
+.resend-timer {
+  color: #718096;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+.resend-btn {
+  background: none;
+  border: none;
+  color: #667eea;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s ease;
+}
+
+.resend-btn:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+.resend-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   BACK BUTTON
+   ============================================ */
+
+.back-btn {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #667eea;
+  background: #f7fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.back-btn:hover {
+  background: #edf2f7;
+  border-color: #cbd5e0;
+}
+
+.back-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   BACK TO LOGIN LINK
+   ============================================ */
+
+.back-to-login {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.back-to-login label {
+  font-size: 0.9rem;
+  color: #718096;
+}
+
+.back-to-login a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 0.3rem;
+  position: relative;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.back-to-login a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #667eea;
+  transition: width 0.3s ease;
+}
+
+.back-to-login a:hover {
+  color: #764ba2;
+}
+
+.back-to-login a:hover::after {
+  width: 100%;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  body {
+    padding: 1.5rem;
+  }
+
+  .otp-form {
+    padding: 2.5rem 2rem;
+  }
+
+  .otp-title {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 1rem;
+  }
+
+  .otp-form {
+    padding: 2rem 1.5rem;
+  }
+
+  .otp-title {
+    font-size: 1.5rem;
+  }
+
+  .form-group input {
+    padding: 0.8rem 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  input[name="otp"] {
+    font-size: 1.2rem;
+    letter-spacing: 0.3rem;
+  }
+
+  .otp-btn {
+    padding: 0.9rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+*:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   SMOOTH RENDERING
+   ============================================ */
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

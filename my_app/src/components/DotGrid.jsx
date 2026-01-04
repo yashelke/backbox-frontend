@@ -1,0 +1,144 @@
+import { useEffect, useRef, useState } from 'react';
+
+const DotGrid = ({
+  dotSpacing = 30,
+  dotBaseSize = 2,
+  influenceRadius = 150,
+  maxScale = 8,
+  backgroundColor = '#0a0a0a',
+  glowColor = '#8b5cf6',
+  showGrid = true,
+  numLayers = 2,
+  hiddots = false,
+}) => {
+  const canvasRef = useRef(null);
+  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+      canvas.style.width = `${canvas.offsetWidth}px`;
+      canvas.style.height = `${canvas.offsetHeight}px`;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    const createDots = () => {
+      const dots = [];
+      for (let x = dotSpacing; x < canvas.offsetWidth; x += dotSpacing) {
+        for (let y = dotSpacing; y < canvas.offsetHeight; y += dotSpacing) {
+          dots.push({ x, y, baseSize: dotBaseSize });
+        }
+      }
+      return dots;
+    };
+    let dots = createDots();
+    let animationId;
+
+    const animate = () => {
+      if (!ctx || !canvas) return;
+
+      ctx.fillStyle = backgroundColor;
+      ctx.fillRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+
+      if (Math.abs(canvas.width - canvas.offsetWidth * window.devicePixelRatio) > 1) {
+        dots = createDots();
+      }
+
+      dots.forEach((dot) => {
+        const dx = mousePos.x - dot.x;
+        const dy = mousePos.y - dot.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (hiddots && distance >= influenceRadius) {
+          return;
+        }
+
+        let scale = 1;
+        if (distance < influenceRadius && showGrid) {
+          const influence = 1 - distance / influenceRadius;
+          scale = 1 + influence * influence * (maxScale - 1);
+        }
+
+        const size = dot.baseSize * scale;
+        const glowIntensity = Math.min(1, (scale - 1) / (maxScale - 1));
+
+        const gradient = ctx.createRadialGradient(dot.x, dot.y, 0, dot.x, dot.y, size * numLayers);
+        if (scale > 1.5) {
+          gradient.addColorStop(0, `rgba(255, 255, 255, ${glowIntensity * 0.3})`);
+          for (let layer = 1; layer < numLayers; layer++) {
+            const layerOpacity = glowIntensity * (1 - layer / numLayers);
+            const layerStop = layer / numLayers;
+            gradient.addColorStop(layerStop, `rgba(167, 139, 250, ${layerOpacity})`);
+          }
+          gradient.addColorStop(1, `${glowColor}`);
+        } else {
+          const intensity = Math.min(255, 100 + (scale - 1) * 40);
+          gradient.addColorStop(0, `rgb(${intensity}, ${intensity}, ${intensity})`);
+          gradient.addColorStop(1, `rgb(${intensity * 0.7}, ${intensity * 0.7}, ${intensity * 0.7})`);
+        }
+
+        if (glowIntensity > 0.2) {
+          ctx.shadowBlur = 20 * glowIntensity * numLayers;
+          ctx.shadowColor = `${glowColor}${Math.floor(glowIntensity * 255).toString(16).padStart(2, '0')}`;
+        }
+
+        ctx.beginPath();
+        ctx.arc(dot.x, dot.y, size, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+
+        ctx.shadowBlur = 0;
+        ctx.shadowColor = 'transparent';
+      });
+
+      animationId = requestAnimationFrame(animate);
+    };
+    animate();
+
+    const handleMouseMove = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      setMousePos({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+    };
+    const handleMouseLeave = () => {
+      setMousePos({ x: -1000, y: -1000 });
+    };
+    canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      canvas.removeEventListener('mousemove', handleMouseMove);
+      canvas.removeEventListener('mouseleave', handleMouseLeave);
+      cancelAnimationFrame(animationId);
+    };
+  }, [mousePos, dotSpacing, dotBaseSize, influenceRadius, maxScale, backgroundColor, glowColor, showGrid, numLayers, hiddots]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        zIndex: 0,
+        backgroundColor,
+        pointerEvents: 'auto',
+      }}
+    />
+  );
+};
+
+export default DotGrid;

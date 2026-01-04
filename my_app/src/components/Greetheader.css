@@ -1,0 +1,259 @@
+:root{
+  --bg: #0f1724; /* deep navy */
+  --card: #ffffff;
+  --muted: #94a3b8;
+  --accent: #7c3aed; /* purple */
+  --accent-2: #06b6d4; /* teal */
+  --shadow: 0 6px 18px rgba(15,23,36,0.12);
+  --greetheader-height: 56px; /* used if you want to offset page content */
+}
+
+
+.header-section{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:1100;
+  width:100%;
+  background: #ffffff; /* plain white background requested */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding:8px 0;
+  box-sizing: border-box;
+  box-shadow: 0 6px 18px rgba(15,23,36,0.06);
+  border-radius: 0 0 12px 12px;
+}
+
+.nav-wrapper{
+  width:100%;
+  max-width:1200px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between; /* brand left, profile right */
+  gap:16px;
+  padding:0 24px; /* horizontal padding inside the centered wrapper */
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex:0 0 auto;
+}
+
+.nav-title{
+  font-size:20px;
+  font-weight:700;
+  color:var(--bg);
+  margin:0;
+  letter-spacing:0.2px;
+}
+
+.nav-items{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-left:24px; /* space between BackBox and links */
+}
+
+.nav-items .nav-link{
+  font-size:14px;
+  color:#111827;
+  text-decoration:none;
+  padding:4px 0;
+  position:relative;
+  transition:color 160ms ease;
+}
+
+.nav-items .nav-link::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  width:0;
+  height:2px;
+  background:linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius:999px;
+  transition:width 180ms ease-out;
+}
+
+.nav-items .nav-link:hover,
+.nav-items .nav-link:focus{
+  color:var(--accent);
+}
+
+.nav-items .nav-link:hover::after,
+.nav-items .nav-link:focus::after{
+  width:100%;
+}
+
+.corner-profile-section{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex:0 0 auto;
+}
+
+.greet{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  line-height:1;
+}
+
+.greet-user{
+  font-size:14px;
+  color:black;
+  margin-bottom:3px;
+}
+
+.greet-name{
+  font-size:14px;
+  font-weight:600;
+  color:var(--bg);
+}
+
+.logout-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:transparent;
+  border:1px solid rgba(15,23,36,0.06);
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:all 160ms ease;
+  box-shadow:var(--shadow);
+}
+
+.logout-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(15,23,36,0.12);
+}
+
+.logout-btn:active{
+  transform:translateY(0);
+}
+
+.logout-btn svg{
+  width:16px;
+  height:16px;
+  color:var(--accent);
+  flex-shrink:0;
+}
+
+.logout-text{
+  font-size:14px;
+  color:var(--bg);
+  font-weight:600;
+}
+
+/* small screens: stack brand and profile, center brand */
+
+@media (max-width:900px){
+  /* On medium screens, slightly reduce paddings */
+  .nav-wrapper{ padding:0 14px; }
+}
+
+@media (max-width:600px){
+  /* Stack the items vertically but keep brand left visually centered at top */
+  .nav-wrapper{
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .brand{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    order: 1;
+  }
+
+  .nav-items{
+    margin-left: 0;
+    margin-top: 0;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    order: 3;
+  }
+
+  .corner-profile-section{
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    order: 4;
+  }
+
+  .greet{
+    align-items: flex-start;
+  }
+
+  .logout-btn{
+    width: 160px;
+    justify-content: center;
+  }
+}
+
+/* reduce padding on very small screens */
+@media (max-width:380px){
+  .header-section{ padding: 8px 10px; }
+  .nav-title{ font-size: 18px; }
+  .logout-text{ display: none; }
+}
+
+/*
+  If the header overlaps page content due to fixed positioning,
+  add the class `page-with-navbar` to the page container (e.g. body > #root)
+  to apply top padding equal to the header height:
+
+  .page-with-navbar { padding-top: var(--greetheader-height); }
+
+  I didn't change your global CSS, but you can add that utility to your main stylesheet.
+*/
+
+/* Utility to apply a plain white background for the greet page.
+   Add the class `greet-page` to the page container (e.g. the element wrapping this route)
+   to make the background white and ensure consistent appearance. */
+.greet-page{
+  background: #ffffff;
+  color: var(--bg);
+  min-height: 100vh;
+}
+
+/* Optionally ensure base html/body background is white when greet page is active */
+.greet-page, .greet-page body, .greet-page html {
+  background: #ffffff;
+}
+
+.greet-page body{
+  padding-bottom:80px; /* space for fixed footer */
+}
+
+.footer-section{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  padding:20px 16px;
+  text-align:center;
+  background:#ffffff;
+  color:var(--muted);
+  border-top:1px solid rgba(0, 0, 0, 0.06);
+  font-size:14px;
+  box-shadow:0 -6px 18px rgba(15,23,36,0.06);
+  z-index:1000;
+}
+
+.footer-section p{
+  color:black;
+  font-weight:500;
+}
+@media (max-width:600px){
+  .footer-section{ font-size:12px; padding:16px 12px; }
+}

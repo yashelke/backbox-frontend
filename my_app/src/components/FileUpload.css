@@ -1,0 +1,228 @@
+/* FileUpload Component */
+.upload-section {
+  width: 100%;
+  padding: 90px 0;
+  background: transparent;
+}
+
+.upload-card {
+  width: 100%;
+  padding: 48px clamp(24px, 6vw, 80px);
+  border-radius: 32px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow:
+    0 35px 80px rgba(15, 23, 42, 0.12),
+    0 15px 25px rgba(124, 58, 237, 0.08);
+  backdrop-filter: blur(14px);
+  border-radius: 32px;
+}
+
+.upload-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.82);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  color: #f1f5f9;
+  z-index: 5;
+  text-align: center;
+}
+
+.upload-overlay p {
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.upload-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.upload-header .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  font-size: 12px;
+  font-weight: 600;
+  color: #7c3aed;
+  margin-bottom: 12px;
+}
+
+.upload-header h2 {
+  margin: 0 0 12px 0;
+  font-size: 36px;
+  color: #0f1724;
+}
+
+.upload-header p {
+  margin: 0;
+  color: #475569;
+  font-size: 16px;
+}
+
+.drop-zone {
+  border: 2px dashed rgba(124, 58, 237, 0.35);
+  border-radius: 28px;
+  padding: 48px 32px;
+  transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.05), rgba(255, 255, 255, 0.6));
+  cursor: pointer;
+  outline: none;
+}
+
+.drop-zone.dragging {
+  border-color: rgba(124, 58, 237, 0.9);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(255, 255, 255, 0.9));
+  box-shadow: 0 20px 45px rgba(124, 58, 237, 0.18);
+}
+
+.drop-zone.has-file {
+  border-style: solid;
+}
+
+.drop-zone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: #4c1d95;
+}
+
+.drop-zone-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #7c3aed;
+}
+
+.drop-zone-icon svg {
+  width: 36px;
+  height: 36px;
+}
+
+.placeholder {
+  text-align: center;
+  color: #475569;
+}
+
+.placeholder p {
+  margin: 2px 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.placeholder small {
+  display: block;
+  margin-top: 6px;
+  color: #94a3b8;
+}
+
+.file-summary {
+  text-align: center;
+}
+
+.file-name {
+  margin: 0;
+  font-weight: 600;
+  font-size: 18px;
+  color: #0f1724;
+}
+
+.file-meta {
+  margin: 6px 0 12px 0;
+  color: #475569;
+  font-size: 15px;
+}
+
+.text-button {
+  border: none;
+  background: none;
+  color: #7c3aed;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.upload-actions {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+}
+
+.upload-actions .ghost,
+.upload-actions .primary {
+  min-width: 180px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.upload-actions .ghost {
+    background: linear-gradient(120deg, #7c3aed, #c084fc);
+ color: #ffffff;
+}
+
+.upload-actions .primary {
+  /* background: linear-gradient(120deg, #7c3aed, #c084fc); */
+  background-color:rgba(39, 35, 245, 1);
+  color: #ffffff;
+  box-shadow: 0 18px 35px rgba(124, 58, 237, 0.35);
+}
+
+.upload-actions .ghost:hover,
+.upload-actions .primary:hover {
+  transform: translateY(-3px);
+}
+
+.upload-actions .primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+
+.status {
+  margin-top: 18px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.status.success {
+  color: #138e36;
+}
+
+.status.error {
+  color: #dc2626;
+}
+
+@media (max-width: 720px) {
+  .upload-card {
+    padding: 32px 24px;
+  }
+
+  .upload-header h2 {
+    font-size: 28px;
+  }
+
+  .drop-zone {
+    padding: 36px 20px;
+  }
+}

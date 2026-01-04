@@ -1,0 +1,406 @@
+/* ============================================
+   SIMPLE PROFESSIONAL LOGIN PAGE
+   Clean Design with Button Animations
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+}
+
+/* ============================================
+   FORM CONTAINER - CLEAN CARD
+   ============================================ */
+
+.form-container {
+  background: #ffffff;
+  padding: 2.5rem 4rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  max-width: 900px;
+  width: 100%;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   TITLE STYLING
+   ============================================ */
+
+.form-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a202c;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.form-title::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  margin: 0.8rem auto 0;
+  border-radius: 2px;
+}
+
+/* ============================================
+   FORM GROUP
+   ============================================ */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ============================================
+   LABEL STYLING
+   ============================================ */
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: -1rem;
+}
+
+/* ============================================
+   INPUT FIELDS - SIMPLE & CLEAN
+   ============================================ */
+
+.form-group input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  font-size: 0.95rem;
+  color: #1a202c;
+  background: #f7fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  outline: none;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.form-group input::placeholder {
+  color: #a0aec0;
+}
+
+.form-group input:focus {
+  background: #ffffff;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group input:hover:not(:focus) {
+  border-color: #cbd5e0;
+}
+
+/* ============================================
+   BUTTON WITH PREMIUM ANIMATIONS
+   ============================================ */
+
+.login-btn {
+  margin-top: 0.5rem;
+}
+
+.login-btn button {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* Shimmer Effect Animation */
+.login-btn button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.login-btn button:hover::before {
+  left: 100%;
+}
+
+/* Hover Animation */
+.login-btn button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Click Animation */
+.login-btn button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* Ripple Effect on Click */
+.login-btn button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
+  opacity: 0;
+}
+
+.login-btn button:active::after {
+  width: 300px;
+  height: 300px;
+  opacity: 0;
+}
+
+/* Pulse Animation (Continuous) */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.5);
+  }
+}
+
+.login-btn button {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.login-btn button:hover {
+  animation: none;
+}
+
+/* Loading State Animation */
+.login-btn button.loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.login-btn button.loading::before {
+  animation: none;
+}
+
+.login-btn button.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -10px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  opacity: 1;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   SIGNUP LINK
+   ============================================ */
+
+.signup-link {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.signup-link label {
+  font-size: 0.9rem;
+  color: #718096;
+}
+
+.signup-link a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 0.3rem;
+  position: relative;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+/* Animated Underline */
+.signup-link a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #667eea;
+  transition: width 0.3s ease;
+}
+
+.signup-link a:hover {
+  color: #764ba2;
+}
+
+.signup-link a:hover::after {
+  width: 100%;
+}
+
+/* ============================================
+   OTP METHOD LINK
+   ============================================ */
+
+.otp-method {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.otp-method label {
+  font-size: 0.9rem;
+  color: #718096;
+}
+
+.otp-method a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 0.3rem;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* Animated Underline */
+.otp-method a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #667eea;
+  transition: width 0.3s ease;
+}
+
+.otp-method a:hover {
+  color: #764ba2;
+}
+
+.otp-method a:hover::after {
+  width: 100%;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  body {
+    padding: 1.5rem;
+  }
+
+  .form-container {
+    padding: 2.5rem 2rem;
+  }
+
+  .form-title {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 1rem;
+  }
+
+  .form-container {
+    padding: 2rem 1.5rem;
+  }
+
+  .form-title {
+    font-size: 1.5rem;
+  }
+
+  .form-group input {
+    padding: 0.8rem 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  .login-btn button {
+    padding: 0.9rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+*:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   SMOOTH RENDERING
+   ============================================ */
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
