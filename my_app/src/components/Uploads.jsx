@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import "./Uploads.css";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const Uploads = () => {
     const navigate = useNavigate();
     const [files, setFiles] = useState([]);
@@ -26,7 +28,7 @@ const Uploads = () => {
                 return;
             }
 
-            const response = await fetch('http://localhost:5000/api/files/', {
+            const response = await fetch(`${API_URL}/api/files/`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -60,7 +62,7 @@ const Uploads = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:5000/api/files/${fileId}`, {
+            const response = await fetch(`${API_URL}/api/files/${fileId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`
