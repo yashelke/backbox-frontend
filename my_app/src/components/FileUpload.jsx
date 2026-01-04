@@ -8,7 +8,8 @@ const FileUpload = () => {
     const [status, setStatus] = useState({ type: "", message: "" });
     const [isUploading, setIsUploading] = useState(false);
     const fileInputRef = useRef(null);
-    const uploadEndpoint = import.meta.env.VITE_UPLOAD_URL || "/api/files/upload";
+    const API_URL = import.meta.env.VITE_API_URL;
+    const uploadEndpoint = `${API_URL}/api/files/upload`;
 
     const setFile = (file) => {
         if (!file) {
