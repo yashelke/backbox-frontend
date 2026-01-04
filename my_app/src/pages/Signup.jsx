@@ -4,6 +4,8 @@ import "./Signup.css";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 function Signup() {
 
@@ -57,7 +59,7 @@ function Signup() {
         setLoading(true);
 
         try {
-            const response = await axios.post("http://localhost:5000/api/users/signup", {
+            const response = await axios.post(`${API_URL}/api/users/signup`, {
                 email: email,
                 password: password
             });

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Otp.css';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function Otp() {
   const navigate = useNavigate();
   
@@ -108,7 +110,7 @@ function Otp() {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:5000/api/users/request-otp", {
+      const response = await axios.post(`${API_URL}/api/users/request-otp`, {
         email: email
       });
 
@@ -172,7 +174,7 @@ function Otp() {
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:5000/api/users/verify-otp", {
+      const response = await axios.post(`${API_URL}/api/users/verify-otp`, {
         email: email,
         otp: otp
       });
